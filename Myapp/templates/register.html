@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Register | Mounam Natural Farm
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+
+            <div class="card shadow border-0 rounded-4">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <!-- Heading -->
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold mb-2">Create Your Account</h2>
+                        <p class="text-muted mb-0">
+                            Join Mounam Natural Farm
+                        </p>
+                    </div>
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        <!-- Username -->
+                        <div class="mb-3">
+                            <label for="username" class="form-label fw-semibold">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control form-control-lg"
+                                id="username"
+                                name="username" 
+                                placeholder="Enter your username"
+                                required
+                            >
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control form-control-lg"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="mb-3">
+                            <label for="phone" class="form-label fw-semibold">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                class="form-control form-control-lg"
+                                id="phone"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                                required
+                            >
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label fw-semibold">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                class="form-control form-control-lg"
+                                id="password"
+                                name="password"
+                                placeholder="Create a password"
+                                required
+                            >
+                        </div>
+
+                        <!-- Profile Image -->
+                        <div class="mb-3">
+                            <label for="profile_image" class="form-label fw-semibold">
+                                Profile Image
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="profile_image"
+                                name="profile_image"
+                                accept="image/*"
+                            >
+                        </div>
+
+                        <!-- Location -->
+                        <div class="mb-3">
+                            <label for="location" class="form-label fw-semibold">
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control form-control-lg"
+                                id="location"
+                                name="location"
+                                placeholder="Enter your location"
+                            >
+                        </div>
+
+                        <!-- Address -->
+                        <div class="mb-4">
+                            <label for="address" class="form-label fw-semibold">
+                                Address
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="address"
+                                name="address"
+                                rows="3"
+                                placeholder="Enter your address"
+                            ></textarea>
+                        </div>
+
+                        <!-- Register Button -->
+                        <div class="d-grid">
+                            <button
+                                type="submit"
+                                class="btn btn-success btn-lg rounded-3"
+                            >
+                                Create Account
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <!-- Login Link -->
+                    <div class="text-center mt-4">
+                        <p class="mb-0 text-muted">
+                            Already have an account?
+                            <a href="{% url 'login' %}"
+                               class="text-decoration-none fw-semibold">
+                                Login
+                            </a>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

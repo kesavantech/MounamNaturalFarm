@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer</title>
+    
+</head>
+<body>
+
+<footer class="bg-dark text-white mt-5">
+    <div class="container py-4">
+        
+        <div class="row">
+
+            <!-- Farm Information -->
+            <div class="col-md-6">
+                <h5>Mounam Natural Farms</h5>
+                <p>
+                    Naturally grown products with care from our farm to your home.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-6">
+                <h5>Quick Links</h5>
+
+                <a href="{% url 'home' %}" class="text-white text-decoration-none d-block">
+                    Home
+                </a>
+
+                <a href="{% url 'about' %}" class="text-white text-decoration-none d-block">
+                    About Us
+                </a>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="text-center">
+            <p class="mb-0">
+                © 2026 Mounam Natural Farms. All Rights Reserved.
+            </p>
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>
