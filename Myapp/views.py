@@ -3,7 +3,7 @@ from . models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def HomeView(request):
@@ -87,5 +87,7 @@ def LogoutView(request):
 def ManageBaseView(request):
     return render(request, "manage_base.html")
 
+
+@login_required(login_url="login")
 def DashboardView(request):
     return render(request, "dashboard.html")

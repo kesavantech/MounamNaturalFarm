@@ -1,0 +1,82 @@
+<!-- Responsive Sidebar -->
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Mobile Menu Button -->
+        <div class="d-md-none mb-3">
+            <button class="btn btn-dark w-100"
+                    type="button"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#dashboardSidebar">
+                ☰ Menu
+            </button>
+        </div>
+
+
+        <!-- Sidebar -->
+        <div class="offcanvas-md offcanvas-start col-md-3 col-lg-2 bg-dark text-white"
+             tabindex="-1"
+             id="dashboardSidebar">
+
+            <!-- Sidebar Header -->
+            <div class="offcanvas-header d-md-none">
+                <h5 class="offcanvas-title">Menu</h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="offcanvas">
+                </button>
+            </div>
+
+
+            <div class="offcanvas-body d-flex flex-column p-3">
+
+                {% if request.user.role == "ADMIN" %}
+
+                    <!-- Admin Sidebar -->
+                    <h5 class="mb-4">Admin</h5>
+
+                    <a href="#"
+                       class="nav-link text-white mb-2">
+                        Users
+                    </a>
+
+                    <a href="#"
+                       class="nav-link text-white mb-2">
+                        Bases
+                    </a>
+
+                    <a href="#"
+                       class="nav-link text-white mb-2">
+                        Enquiries
+                    </a>
+
+                {% else %}
+
+                    <!-- Client Sidebar -->
+                    <h5 class="mb-4">Client</h5>
+
+                    <a href="#"
+                       class="nav-link text-white mb-2">
+                        Dashboard
+                    </a>
+
+                    <a href="#"
+                       class="nav-link text-white mb-2">
+                        Bookings
+                    </a>
+
+                    <a href="#"
+                       class="nav-link text-white mb-2">
+                        Profile
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
