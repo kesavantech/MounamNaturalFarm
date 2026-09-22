@@ -12,5 +12,7 @@ urlpatterns = [
 
     path("dashboard/", views.DashboardView, name="dashboard"), 
     path("ManageBase/", views.ManageBaseView, name="manage_base"),
+    path("UsersList/", views.UserListView, name="user_list"),
+    path("Enquires/", views.EnquireView, name="enquires"),
 
 ]

@@ -1,82 +1,112 @@
-<!-- Responsive Sidebar -->
 
-<div class="container-fluid">
-    <div class="row">
-
-        <!-- Mobile Menu Button -->
-        <div class="d-md-none mb-3">
-            <button class="btn btn-dark w-100"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#dashboardSidebar">
-                ☰ Menu
-            </button>
-        </div>
+<!-- Mobile Menu Button -->
+<div class="d-md-none mb-3">
+    <button
+        class="btn btn-dark w-100"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#dashboardSidebar"
+        aria-controls="dashboardSidebar">
+        ☰ Menu
+    </button>
+</div>
 
 
-        <!-- Sidebar -->
-        <div class="offcanvas-md offcanvas-start col-md-3 col-lg-2 bg-dark text-white"
-             tabindex="-1"
-             id="dashboardSidebar">
+<!-- Sidebar -->
+<div
+    class="offcanvas-md offcanvas-start bg-dark text-white"
+    tabindex="-1"
+    id="dashboardSidebar"
+    aria-labelledby="dashboardSidebarLabel">
 
-            <!-- Sidebar Header -->
-            <div class="offcanvas-header d-md-none">
-                <h5 class="offcanvas-title">Menu</h5>
+    <!-- Mobile Sidebar Header -->
+    <div class="offcanvas-header d-md-none">
 
-                <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="offcanvas">
-                </button>
-            </div>
+        <h5
+            class="offcanvas-title"
+            id="dashboardSidebarLabel">
+            Menu
+        </h5>
 
-
-            <div class="offcanvas-body d-flex flex-column p-3">
-
-                {% if request.user.role == "ADMIN" %}
-
-                    <!-- Admin Sidebar -->
-                    <h5 class="mb-4">Admin</h5>
-
-                    <a href="#"
-                       class="nav-link text-white mb-2">
-                        Users
-                    </a>
-
-                    <a href="#"
-                       class="nav-link text-white mb-2">
-                        Bases
-                    </a>
-
-                    <a href="#"
-                       class="nav-link text-white mb-2">
-                        Enquiries
-                    </a>
-
-                {% else %}
-
-                    <!-- Client Sidebar -->
-                    <h5 class="mb-4">Client</h5>
-
-                    <a href="#"
-                       class="nav-link text-white mb-2">
-                        Dashboard
-                    </a>
-
-                    <a href="#"
-                       class="nav-link text-white mb-2">
-                        Bookings
-                    </a>
-
-                    <a href="#"
-                       class="nav-link text-white mb-2">
-                        Profile
-                    </a>
-
-                {% endif %}
-
-            </div>
-
-        </div>
+        <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close">
+        </button>
 
     </div>
+
+<!-- Sidebar -->
+
+<div
+    class="bg-dark text-white min-vh-100 p-3"
+    style="width: 250px;">
+
+    {% if request.user.role == "ADMIN" %}
+
+        <!-- Admin Navigation -->
+
+        <h5 class="mb-4">
+            Admin Dashboard
+        </h5>
+
+        <nav class="nav flex-column">
+
+            <a
+                href="{% url 'user_list' %}"
+                class="nav-link text-white mb-2">
+                Users List
+            </a>
+
+            <a
+                href="{% url 'manage_base' %}"
+                class="nav-link text-white mb-2">
+                Manage Bases
+            </a>
+
+            <a
+                href="{% url 'enquires' %}"
+                class="nav-link text-white mb-2">
+                Enquiries
+            </a>
+
+        </nav>
+
+
+    {% else %}
+
+        <!-- Client Navigation -->
+
+        <h5 class="mb-4">
+            Client Dashboard
+        </h5>
+
+        <nav class="nav flex-column">
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="nav-link text-white mb-2">
+                Dashboard
+            </a>
+
+            <a
+                href="#"
+                class="nav-link text-white mb-2">
+                Bookings
+            </a>
+
+            <a
+                href="#"
+                class="nav-link text-white mb-2">
+                Profile
+            </a>
+
+        </nav>
+
+    {% endif %}
+
+</div>
+
+
 </div>

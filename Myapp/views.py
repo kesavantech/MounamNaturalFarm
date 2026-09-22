@@ -91,3 +91,24 @@ def ManageBaseView(request):
 @login_required(login_url="login")
 def DashboardView(request):
     return render(request, "dashboard.html")
+
+@login_required(login_url="login")
+def UserListView(request):
+    if request.user.role != "ADMIN":
+        return redirect("home")
+    return render(request, "users.html")
+
+@login_required(login_url="login")
+def ManageBaseView(request):
+    print("Username:",request.user.username)
+    if request.user.role != "ADMIN":
+        return redirect("home")
+    return render(request, "manage_base.html")
+
+@login_required(login_url="login")
+def EnquireView(request):
+    print("Username:",request.user.username)
+    if request.user.role != "ADMIN":
+        return redirect("home")
+    return render(request, "enquire.html")
+
