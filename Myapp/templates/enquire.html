@@ -1,8 +1,36 @@
-{% extends 'base.html' %}
+
+{% extends "base.html" %}
+
 {% block content %}
 
-{% include 'partials/side.html' %}
+<div class="container-fluid">
 
-<h1>Enquire.html</h1>
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-auto p-0">
+
+            {% include "partials/side.html" %}
+
+        </div>
+
+
+        <!-- Main Content -->
+        <main class="col p-3 p-md-4">
+
+            <h1 class="fw-bold mb-3">
+                Hello World!
+                Enquire Page !
+            </h1>
+
+            <p class="text-muted">
+                Welcome to Mounam Natural Farm Dashboard.
+            </p>
+
+        </main>
+
+    </div>
+
+</div>
 
 {% endblock %}

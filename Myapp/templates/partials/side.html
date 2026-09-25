@@ -1,32 +1,57 @@
 
-<!-- Mobile Menu Button -->
+<!-- =========================
+     MOBILE MENU BUTTON
+========================= -->
 <div class="d-md-none mb-3">
     <button
-        class="btn btn-dark w-100"
+        class="btn btn-dark w-100 d-flex align-items-center justify-content-center gap-2"
         type="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#dashboardSidebar"
         aria-controls="dashboardSidebar">
-        ☰ Menu
+
+        <i class="bi bi-list fs-5"></i>
+        <span>Menu</span>
+
     </button>
 </div>
 
 
-<!-- Sidebar -->
+<!-- =========================
+     SIDEBAR
+========================= -->
 <div
     class="offcanvas-md offcanvas-start bg-dark text-white"
     tabindex="-1"
     id="dashboardSidebar"
-    aria-labelledby="dashboardSidebarLabel">
+    aria-labelledby="dashboardSidebarLabel"
+    style="width: 260px;">
 
-    <!-- Mobile Sidebar Header -->
-    <div class="offcanvas-header d-md-none">
+    <!-- =========================
+         MOBILE SIDEBAR HEADER
+    ========================= -->
+    <div class="offcanvas-header d-md-none border-bottom border-secondary">
 
-        <h5
-            class="offcanvas-title"
-            id="dashboardSidebarLabel">
-            Menu
-        </h5>
+        <div class="d-flex align-items-center gap-2">
+
+            <div
+                class="bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 38px; height: 38px;">
+
+                <i class="bi bi-speedometer2"></i>
+
+            </div>
+
+            <h5
+                class="offcanvas-title mb-0"
+                id="dashboardSidebarLabel">
+
+                Dashboard
+
+            </h5>
+
+        </div>
+
 
         <button
             type="button"
@@ -37,76 +62,214 @@
 
     </div>
 
-<!-- Sidebar -->
 
-<div
-    class="bg-dark text-white min-vh-100 p-3"
-    style="width: 250px;">
+    <!-- =========================
+         SIDEBAR CONTENT
+    ========================= -->
+    <div class="d-flex flex-column min-vh-100 p-3">
 
-    {% if request.user.role == "ADMIN" %}
 
-        <!-- Admin Navigation -->
+        <!-- =========================
+             LOGO / TITLE
+        ========================= -->
+        <div class="d-none d-md-flex align-items-center gap-2 mb-4">
 
-        <h5 class="mb-4">
-            Admin Dashboard
-        </h5>
+            <div
+                class="bg-primary rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 42px; height: 42px;">
 
-        <nav class="nav flex-column">
+                <i class="bi bi-speedometer2 fs-5"></i>
+
+            </div>
+
+            <div>
+
+                <h5 class="mb-0">
+                    Dashboard
+                </h5>
+
+                <small class="text-secondary">
+                    Mounam Natural Farm
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             USER INFORMATION
+        ========================= -->
+        <div class="bg-secondary bg-opacity-25 rounded-3 p-3 mb-4">
+
+            <div class="d-flex align-items-center gap-2">
+
+                <div
+                    class="bg-light text-dark rounded-circle d-flex align-items-center justify-content-center"
+                    style="width: 40px; height: 40px;">
+
+                    <i class="bi bi-person-fill"></i>
+
+                </div>
+
+                <div class="overflow-hidden">
+
+                    <div class="fw-semibold text-truncate">
+
+                        {{ request.user.username }}
+
+                    </div>
+
+                    <small class="text-secondary">
+
+                        {{ request.user.role }}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             ADMIN NAVIGATION
+        ========================= -->
+        {% if request.user.role == "ADMIN" %}
+
+            <small class="text-uppercase text-secondary fw-semibold mb-2">
+                Administration
+            </small>
+
+
+            <nav class="nav flex-column gap-1">
+
+                <!-- Users -->
+                <a
+                    href="{% url 'user_list' %}"
+                    class="nav-link text-white rounded-3 d-flex align-items-center gap-3 py-2 px-3">
+
+                    <i class="bi bi-people-fill"></i>
+
+                    <span>
+                        Users
+                    </span>
+
+                </a>
+
+
+                <!-- Bases -->
+                <a
+                    href="{% url 'manage_base' %}"
+                    class="nav-link text-white rounded-3 d-flex align-items-center gap-3 py-2 px-3">
+
+                    <i class="bi bi-building-fill"></i>
+
+                    <span>
+                        Manage Bases
+                    </span>
+
+                </a>
+
+
+                <!-- Enquiries -->
+                <a
+                    href="{% url 'enquires' %}"
+                    class="nav-link text-white rounded-3 d-flex align-items-center gap-3 py-2 px-3">
+
+                    <i class="bi bi-chat-left-text-fill"></i>
+
+                    <span>
+                        Enquiries
+                    </span>
+
+                </a>
+
+            </nav>
+
+
+        <!-- =========================
+             CLIENT NAVIGATION
+        ========================= -->
+        {% else %}
+
+            <small class="text-uppercase text-secondary fw-semibold mb-2">
+                My Account
+            </small>
+
+
+            <nav class="nav flex-column gap-1">
+
+                <!-- Dashboard -->
+                <a
+                    href="{% url 'dashboard' %}"
+                    class="nav-link text-white rounded-3 d-flex align-items-center gap-3 py-2 px-3">
+
+                    <i class="bi bi-speedometer2"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <!-- Bookings -->
+                <a
+                    href="#"
+                    class="nav-link text-white rounded-3 d-flex align-items-center gap-3 py-2 px-3">
+
+                    <i class="bi bi-calendar-check-fill"></i>
+
+                    <span>
+                        Bookings
+                    </span>
+
+                </a>
+
+
+                <!-- Profile -->
+                <a
+                    href="#"
+                    class="nav-link text-white rounded-3 d-flex align-items-center gap-3 py-2 px-3">
+
+                    <i class="bi bi-person-fill"></i>
+
+                    <span>
+                        Profile
+                    </span>
+
+                </a>
+
+            </nav>
+
+        {% endif %}
+
+
+        <!-- =========================
+             BOTTOM SECTION
+        ========================= -->
+        <div class="mt-auto pt-4">
+
+            <hr class="border-secondary">
 
             <a
-                href="{% url 'user_list' %}"
-                class="nav-link text-white mb-2">
-                Users List
+                href="{% url 'logout' %}"
+                class="nav-link text-danger rounded-3 d-flex align-items-center gap-3 py-2 px-3">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>
+                    Logout
+                </span>
+
             </a>
 
-            <a
-                href="{% url 'manage_base' %}"
-                class="nav-link text-white mb-2">
-                Manage Bases
-            </a>
-
-            <a
-                href="{% url 'enquires' %}"
-                class="nav-link text-white mb-2">
-                Enquiries
-            </a>
-
-        </nav>
+        </div>
 
 
-    {% else %}
-
-        <!-- Client Navigation -->
-
-        <h5 class="mb-4">
-            Client Dashboard
-        </h5>
-
-        <nav class="nav flex-column">
-
-            <a
-                href="{% url 'dashboard' %}"
-                class="nav-link text-white mb-2">
-                Dashboard
-            </a>
-
-            <a
-                href="#"
-                class="nav-link text-white mb-2">
-                Bookings
-            </a>
-
-            <a
-                href="#"
-                class="nav-link text-white mb-2">
-                Profile
-            </a>
-
-        </nav>
-
-    {% endif %}
+    </div>
 
 </div>
 
-
-</div>

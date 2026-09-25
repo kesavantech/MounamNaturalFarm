@@ -41,3 +41,21 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+class Website(models.Model):
+    id = models.PositiveSmallIntegerField(
+        primary_key=True, default=1, editable=False
+    ) 
+# primary_key=True  # Unique ID | default=1         # Always ID 1 | editable=False    # Cannot edit in Admin
+    logo = models.ImageField(upload_to="logo")
+    logo_radius = models.PositiveIntegerField(default=60)
+    heading = models.CharField(max_length=100)
+    sub_heading = models.CharField(max_length=100)
+    text_color = models.CharField(max_length=30, default="#000000")
+    font_size  = models.PositiveIntegerField(default=16)
+    bg_color = models.CharField( max_length=20, default="#ffffff" )
+    description = models.TextField(blank=True, default="")
+
+    def __str__(self): 
+        return self.heading
+    
