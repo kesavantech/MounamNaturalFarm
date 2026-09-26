@@ -1,7 +1,193 @@
 {% extends 'base.html' %}
+
 {% block content %}
 
-<h1>Hello World !</h1>
-<hr>
+
+<div class="container-fluid px-3 px-md-4 mt-4">
+
+    <div id="homeCarousel"
+     class="carousel slide carousel-fade"
+     data-bs-ride="carousel"
+     data-bs-interval="4000">
+
+    <div class="carousel-inner">
+
+        {% for home in home_data %}
+
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+                <div class="position-relative">
+
+                    <img
+                        src="{{ home.main_image.url }}"
+                        alt="{{ home.title }}"
+                        class="img-fluid w-100"
+                        style="
+                            height: 500px;
+                            object-fit: cover;
+                            border-radius: 90px;
+                        "
+                    >
+
+                    <!-- Dark overlay -->
+                    <div class="position-absolute top-0 start-0 w-100 h-100"
+                         style="background: rgba(0, 0, 0, 0.35);">
+                    </div>
+
+                    <!-- Content -->
+                    <div class="position-absolute top-50 start-0 translate-middle-y
+                                text-white p-4 p-md-5"
+                         style="max-width: 600px;">
+
+                        <h1 class="fw-bold">
+                            {{ home.title }}
+                        </h1>
+
+                        <p class="fs-5">
+                            {{ home.sub_title }}
+                        </p>
+
+                        <ul class="fs-6">
+                            <li>{{ home.bullet_point_1 }}</li>
+                            <li>{{ home.bullet_point_2 }}</li>
+                            <li>{{ home.bullet_point_3 }}</li>
+                        </ul>
+
+                        <div class="d-flex gap-2 flex-wrap">
+
+                            <a href="#" class="btn btn-success">
+                                Book Now
+                            </a>
+
+                            <a href="#" class="btn btn-success">
+                                WhatsApp
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- Previous -->
+    <button class="carousel-control-prev"
+            type="button"
+            data-bs-target="#homeCarousel"
+            data-bs-slide="prev">
+
+        <span class="carousel-control-prev-icon"></span>
+
+        <span class="visually-hidden">
+            Previous
+        </span>
+
+    </button>
+
+    <!-- Next -->
+    <button class="carousel-control-next"
+            type="button"
+            data-bs-target="#homeCarousel"
+            data-bs-slide="next">
+
+        <span class="carousel-control-next-icon"></span>
+
+        <span class="visually-hidden">
+            Next
+        </span>
+
+    </button>
+
+</div>
+
+
+<!-- Upcoming Events Section -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <!-- Section Heading -->
+        <div class="text-center mb-4">
+
+            <h2 class="fw-bold">
+                Upcoming Workshops & Events
+            </h2>
+
+        </div>
+
+
+        <!-- Event Cards -->
+        <div class="row g-4">
+
+            <!-- Event 1 -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="card border-0 shadow-sm h-100">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
+                        class="card-img-top"
+                        alt="Farm Event"
+                        style="
+                            height: 420px;
+                            object-fit: cover;
+                        "
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Event 2 -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="card border-0 shadow-sm h-100">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1492496913980-501348b61469"
+                        class="card-img-top"
+                        alt="Regenerative Farming"
+                        style="
+                            height: 420px;
+                            object-fit: cover;
+                        "
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Event 3 -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="card border-0 shadow-sm h-100">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1464226184884-fa280b87c399"
+                        class="card-img-top"
+                        alt="Food Forest Workshop"
+                        style="
+                            height: 420px;
+                            object-fit: cover;
+                        "
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}

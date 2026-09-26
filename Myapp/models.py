@@ -59,3 +59,16 @@ class Website(models.Model):
     def __str__(self): 
         return self.heading
     
+
+class HomePage(models.Model):
+    main_image = models.ImageField(
+        upload_to="home/"
+    )
+    title = models.CharField(max_length=100)
+    sub_title = models.CharField(max_length=100)
+    bullet_point_1 = models.CharField(max_length=100)
+    bullet_point_2 = models.CharField(max_length=100)
+    bullet_point_3 = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title

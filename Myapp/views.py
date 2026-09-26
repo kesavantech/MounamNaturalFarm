@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . models import User, Website
+from . models import User, Website, HomePage
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -9,7 +9,9 @@ from django.contrib import messages
 # Create your views here.
 
 def HomeView(request):
-    return render(request, "home.html")
+    home_data = HomePage.objects.all()
+    context = {"home_data":home_data}
+    return render(request, "home.html", context)
 
 def AboutUsView(request):
     return render(request, "about.html")
@@ -138,3 +140,52 @@ def EnquireView(request):
         return redirect("home")
     return render(request, "enquire.html")
 
+
+@login_required(login_url="login")
+def ManageHomeView(request):
+
+    if request.user.role != "ADMIN":
+        messages.error(request, "Access Denied !")
+        return redirect("home")
+
+    if request.method == "POST":
+
+        # Get all submitted values
+        main_images = request.FILES.getlist("main_image")
+        titles = request.POST.getlist("title")
+        sub_titles = request.POST.getlist("sub_title")
+        bullet_1 = request.POST.getlist("bullet_point_1")
+        bullet_2 = request.POST.getlist("bullet_point_2")
+        bullet_3 = request.POST.getlist("bullet_point_3")
+
+        # Delete old Home Page data
+        HomePage.objects.all().delete()
+
+        # Create new Home Page data
+        for i in range(len(titles)):
+
+            HomePage.objects.create(
+                main_image=main_images[i],
+                title=titles[i],
+                sub_title=sub_titles[i],
+                bullet_point_1=bullet_1[i],
+                bullet_point_2=bullet_2[i],
+                bullet_point_3=bullet_3[i]
+            )
+
+        messages.success(
+            request,
+            "Home Page Updated Successfully !"
+        )
+
+        return redirect("manage_home")
+
+    home_data = HomePage.objects.all()
+
+    return render(
+        request,
+        "home_manage.html",
+        {
+            "home_data": home_data
+        }
+    )
