@@ -1,23 +1,14 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-
 <div class="container-fluid">
+    <div class="row dashboard-row">
 
-    <div class="row g-0">
-
-        <!-- =========================
-             SIDEBAR
-        ========================= -->
-        <div class="col-auto p-0 d-none d-md-block">
+        <div class="col-auto p-0 dashboard-sidebar">
             {% include "partials/side.html" %}
         </div>
 
-
-        <!-- =========================
-             MAIN CONTENT
-        ========================= -->
-        <main class="col-12 col-md p-2 p-sm-3 p-md-4">
+        <main class="col py-4 py-md-5">
 
             <!-- Page Header -->
             <div class="mb-3 mb-md-4">
