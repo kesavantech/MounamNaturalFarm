@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Website
+from .models import User, Website, HomePage, AboutUs
 
 admin.site.register(User)
 
@@ -8,3 +8,7 @@ class WebsiteAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return not Website.objects.exists()
+
+admin.site.register(AboutUs)
+admin.site.register(HomePage)
+

@@ -22,37 +22,477 @@
          Django Messages
     ======================== -->
 
-    {% if messages %}
+{% if messages %}
 
-    <div class="position-fixed top-0 end-0 p-3"
-         style="z-index: 1055;">
+    <div class="mounam-toast-container">
 
         {% for message in messages %}
 
-            <div class="alert alert-{{ message.tags }} shadow-sm mb-2"
-                 role="alert"
-                 style="min-width: 280px;">
+            <div class="mounam-toast mounam-{{ message.tags }}">
 
-                <div class="d-flex align-items-center justify-content-between">
+                <div class="mounam-toast-icon">
 
-                    <span>
-                        {{ message }}
-                    </span>
+                    {% if message.tags == "success" %}
+                        <i class="bi bi-check-lg"></i>
 
-                    <button type="button"
-                            class="btn-close ms-3"
-                            data-bs-dismiss="alert"
-                            aria-label="Close">
-                    </button>
+                    {% elif message.tags == "error" %}
+                        <i class="bi bi-x-lg"></i>
+
+                    {% elif message.tags == "warning" %}
+                        <i class="bi bi-exclamation-lg"></i>
+
+                    {% else %}
+                        <i class="bi bi-info-lg"></i>
+                    {% endif %}
 
                 </div>
+
+
+                <div class="mounam-toast-content">
+
+                    <div class="mounam-toast-title">
+
+                        {% if message.tags == "success" %}
+                            Success
+
+                        {% elif message.tags == "error" %}
+                            Something went wrong
+
+                        {% elif message.tags == "warning" %}
+                            Attention
+
+                        {% else %}
+                            Information
+                        {% endif %}
+
+                    </div>
+
+                    <div class="mounam-toast-message">
+                        {{ message }}
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="mounam-toast-close"
+                    onclick="closeMounamToast(this)"
+                >
+                    <i class="bi bi-x"></i>
+                </button>
+
+
+                <div class="mounam-toast-progress"></div>
 
             </div>
 
         {% endfor %}
 
     </div>
+
 {% endif %}
+
+
+<style>
+
+    /* =========================
+       TOAST CONTAINER
+    ========================= */
+
+    .mounam-toast-container {
+
+        position: fixed;
+
+        top: 90px;
+        right: 25px;
+
+        z-index: 9999;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 12px;
+
+        width: 360px;
+
+        max-width: calc(100% - 30px);
+
+    }
+
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .mounam-toast {
+
+        position: relative;
+
+        display: flex;
+        align-items: flex-start;
+
+        gap: 14px;
+
+        background: #ffffff;
+
+        border-radius: 14px;
+
+        padding: 17px 18px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.12);
+
+        animation: mounamToastIn 0.45s ease forwards;
+
+    }
+
+
+    /* =========================
+       ICON
+    ========================= */
+
+    .mounam-toast-icon {
+
+        width: 38px;
+        height: 38px;
+
+        min-width: 38px;
+
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 19px;
+        font-weight: bold;
+
+    }
+
+
+    /* =========================
+       CONTENT
+    ========================= */
+
+    .mounam-toast-content {
+
+        flex: 1;
+
+        padding-top: 1px;
+
+        padding-right: 10px;
+
+    }
+
+
+    .mounam-toast-title {
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        margin-bottom: 3px;
+
+        color: #263326;
+
+    }
+
+
+    .mounam-toast-message {
+
+        font-size: 13px;
+
+        line-height: 1.5;
+
+        color: #687268;
+
+    }
+
+
+    /* =========================
+       CLOSE BUTTON
+    ========================= */
+
+    .mounam-toast-close {
+
+        border: none;
+
+        background: transparent;
+
+        padding: 0;
+
+        color: #899189;
+
+        font-size: 20px;
+
+        cursor: pointer;
+
+        line-height: 1;
+
+        transition: 0.2s ease;
+
+    }
+
+    .mounam-toast-close:hover {
+
+        color: #263326;
+
+        transform: scale(1.1);
+
+    }
+
+
+    /* =========================
+       SUCCESS
+    ========================= */
+
+    .mounam-success {
+
+        border-left: 4px solid #31572c;
+
+    }
+
+    .mounam-success .mounam-toast-icon {
+
+        background: #e8f3e5;
+
+        color: #31572c;
+
+    }
+
+
+    /* =========================
+       ERROR
+    ========================= */
+
+    .mounam-error {
+
+        border-left: 4px solid #dc3545;
+
+    }
+
+    .mounam-error .mounam-toast-icon {
+
+        background: #fde9eb;
+
+        color: #dc3545;
+
+    }
+
+
+    /* =========================
+       WARNING
+    ========================= */
+
+    .mounam-warning {
+
+        border-left: 4px solid #e0a800;
+
+    }
+
+    .mounam-warning .mounam-toast-icon {
+
+        background: #fff4d6;
+
+        color: #b58105;
+
+    }
+
+
+    /* =========================
+       INFO
+    ========================= */
+
+    .mounam-info {
+
+        border-left: 4px solid #0d6efd;
+
+    }
+
+    .mounam-info .mounam-toast-icon {
+
+        background: #e8f1ff;
+
+        color: #0d6efd;
+
+    }
+
+
+    /* =========================
+       PROGRESS BAR
+    ========================= */
+
+    .mounam-toast-progress {
+
+        position: absolute;
+
+        bottom: 0;
+        left: 0;
+
+        height: 3px;
+
+        width: 100%;
+
+        background: #31572c;
+
+        animation: mounamToastProgress 3s linear forwards;
+
+    }
+
+    .mounam-error .mounam-toast-progress {
+        background: #dc3545;
+    }
+
+    .mounam-warning .mounam-toast-progress {
+        background: #e0a800;
+    }
+
+    .mounam-info .mounam-toast-progress {
+        background: #0d6efd;
+    }
+
+
+    /* =========================
+       ANIMATIONS
+    ========================= */
+
+    @keyframes mounamToastIn {
+
+        from {
+
+            opacity: 0;
+
+            transform: translateX(120px);
+
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform: translateX(0);
+
+        }
+
+    }
+
+
+    @keyframes mounamToastOut {
+
+        from {
+
+            opacity: 1;
+
+            transform: translateX(0);
+
+        }
+
+        to {
+
+            opacity: 0;
+
+            transform: translateX(120px);
+
+        }
+
+    }
+
+
+    @keyframes mounamToastProgress {
+
+        from {
+            width: 100%;
+        }
+
+        to {
+            width: 0%;
+        }
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 575px) {
+
+        .mounam-toast-container {
+
+            top: 80px;
+
+            right: 15px;
+            left: 15px;
+
+            width: auto;
+
+            max-width: none;
+
+        }
+
+        .mounam-toast {
+
+            padding: 15px;
+
+        }
+
+    }
+
+</style>
+
+
+<script>
+
+    function closeMounamToast(button) {
+
+        const toast = button.closest(".mounam-toast");
+
+        toast.style.animation =
+            "mounamToastOut 0.35s ease forwards";
+
+        setTimeout(function () {
+
+            toast.remove();
+
+        }, 350);
+
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const toasts =
+            document.querySelectorAll(".mounam-toast");
+
+
+        toasts.forEach(function (toast) {
+
+            setTimeout(function () {
+
+                if (toast) {
+
+                    toast.style.animation =
+                        "mounamToastOut 0.35s ease forwards";
+
+
+                    setTimeout(function () {
+
+                        toast.remove();
+
+                    }, 350);
+
+                }
+
+            }, 3000);
+
+        });
+
+    });
+
+</script>
 
 
     <!-- =======================

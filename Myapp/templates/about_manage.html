@@ -1,0 +1,382 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Manage About Us
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row align-items-stretch">
+
+        <!-- ========================= -->
+        <!-- SIDEBAR -->
+        <!-- ========================= -->
+
+        <div class="col-auto p-0 d-flex">
+
+            {% include "partials/side.html" %}
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- MAIN CONTENT -->
+        <!-- ========================= -->
+
+        <main class="col py-4 py-md-5">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+
+                <div class="mb-4">
+
+                    <h2 class="fw-bold mb-1">
+                        Manage About Us
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Update the content displayed on the About Us page.
+                    </p>
+
+                </div>
+
+
+                <!-- YOUR ABOUT FORM GOES HERE -->
+
+                <form method="POST"
+                      enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <!-- Hero Banner -->
+                    <div class="card border-0 shadow-sm mb-4">
+
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-image me-2"></i>
+                                Hero Banner
+                            </h5>
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row g-3">
+
+                                <div class="col-12">
+
+                                    <label class="form-label fw-semibold">
+                                        Hero Image
+                                    </label>
+
+                                    <input
+                                        type="file"
+                                        name="hero_image"
+                                        class="form-control"
+                                        accept="image/*"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-12">
+
+                                    <label class="form-label fw-semibold">
+                                        Hero Title
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="hero_title"
+                                        class="form-control"
+                                        placeholder="Enter hero title"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-12">
+
+                                    <label class="form-label fw-semibold">
+                                        Hero Sub Title
+                                    </label>
+
+                                    <textarea
+                                        name="hero_sub_title"
+                                        class="form-control"
+                                        rows="3"
+                                        placeholder="Enter hero sub title"
+                                        required
+                                    ></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Who We Are -->
+                    <div class="card border-0 shadow-sm mb-4">
+
+                        <div class="card-header bg-dark text-white">
+
+                            <h5 class="mb-0">
+                                <i class="bi bi-people me-2"></i>
+                                Who We Are
+                            </h5>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row g-3">
+
+                                <div class="col-12">
+
+                                    <label class="form-label fw-semibold">
+                                        Who We Are Image
+                                    </label>
+
+                                    <input
+                                        type="file"
+                                        name="who_we_are_image"
+                                        class="form-control"
+                                        accept="image/*"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-12">
+
+                                    <label class="form-label fw-semibold">
+                                        Title
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="who_we_are_title"
+                                        class="form-control"
+                                        placeholder="Enter section title"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-12">
+
+                                    <label class="form-label fw-semibold">
+                                        Description
+                                    </label>
+
+                                    <textarea
+                                        name="who_we_are_description"
+                                        class="form-control"
+                                        rows="5"
+                                        placeholder="Describe who you are..."
+                                        required
+                                    ></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Mission & Vision -->
+                    <div class="card border-0 shadow-sm mb-4">
+
+                        <div class="card-header bg-dark text-white">
+
+                            <h5 class="mb-0">
+                                <i class="bi bi-bullseye me-2"></i>
+                                Mission & Vision
+                            </h5>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row g-4">
+
+                                <!-- Mission -->
+
+                                <div class="col-12 col-lg-6">
+
+                                    <div class="border rounded p-3 h-100">
+
+                                        <h6 class="fw-bold mb-3">
+                                            Mission
+                                        </h6>
+
+                                        <div class="mb-3">
+
+                                            <label class="form-label">
+                                                Mission Title
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                name="mission_title"
+                                                class="form-control"
+                                                placeholder="Enter mission title"
+                                                required
+                                            >
+
+                                        </div>
+
+                                        <label class="form-label">
+                                            Mission Description
+                                        </label>
+
+                                        <textarea
+                                            name="mission_description"
+                                            class="form-control"
+                                            rows="5"
+                                            placeholder="Enter mission description..."
+                                            required
+                                        ></textarea>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Vision -->
+
+                                <div class="col-12 col-lg-6">
+
+                                    <div class="border rounded p-3 h-100">
+
+                                        <h6 class="fw-bold mb-3">
+                                            Vision
+                                        </h6>
+
+                                        <div class="mb-3">
+
+                                            <label class="form-label">
+                                                Vision Title
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                name="vision_title"
+                                                class="form-control"
+                                                placeholder="Enter vision title"
+                                                required
+                                            >
+
+                                        </div>
+
+                                        <label class="form-label">
+                                            Vision Description
+                                        </label>
+
+                                        <textarea
+                                            name="vision_description"
+                                            class="form-control"
+                                            rows="5"
+                                            placeholder="Enter vision description..."
+                                            required
+                                        ></textarea>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- What Makes Us Special -->
+                    <div class="card border-0 shadow-sm mb-4">
+
+                        <div class="card-header bg-dark text-white">
+
+                            <h5 class="mb-0">
+                                <i class="bi bi-stars me-2"></i>
+                                What Makes Us Special
+                            </h5>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            <div class="row g-3">
+
+                                <div class="col-12">
+
+                                    <label class="form-label fw-semibold">
+                                        Section Title
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        name="special_title"
+                                        class="form-control"
+                                        placeholder="Enter section title"
+                                        required
+                                    >
+
+                                </div>
+
+                                <div class="col-12">
+
+                                    <label class="form-label fw-semibold">
+                                        Description
+                                    </label>
+
+                                    <textarea
+                                        name="special_description"
+                                        class="form-control"
+                                        rows="6"
+                                        placeholder="Explain what makes Mounam Natural Farm special..."
+                                        required
+                                    ></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Save -->
+
+                    <div class="d-flex justify-content-end mb-5">
+
+                        <button
+                            type="submit"
+                            class="btn btn-success px-4">
+
+                            <i class="bi bi-check-circle me-2"></i>
+                            Save About Us
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+{% endblock %}

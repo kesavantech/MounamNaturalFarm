@@ -6,95 +6,398 @@
 
 {% block content %}
 
-<div class="container py-5">
+<style>
 
-    <div class="row justify-content-center">
+    .register-page {
+        min-height: calc(100vh - 76px);
+        background: #f4f7f1;
+        padding: 40px 15px;
+    }
 
-        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+    .register-card {
+        max-width: 1050px;
+        margin: auto;
+        background: #ffffff;
+        border: none;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+    }
 
-            <div class="card shadow border-0 rounded-4">
+    /* Left Image */
 
-                <div class="card-body p-4 p-md-5">
+    .register-image {
+        min-height: 650px;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
 
-                    <!-- Heading -->
-                    <div class="text-center mb-4">
-                        <h2 class="fw-bold mb-2">Create Your Account</h2>
-                        <p class="text-muted mb-0">
-                            Join Mounam Natural Farm
+    .register-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .register-image-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.65),
+            rgba(0, 0, 0, 0.05)
+        );
+    }
+
+    .register-image-content {
+        position: absolute;
+        bottom: 35px;
+        left: 35px;
+        right: 35px;
+        color: white;
+    }
+
+    .register-image-content h2 {
+        font-weight: 700;
+        font-size: 2rem;
+    }
+
+    .register-image-content p {
+        line-height: 1.7;
+        margin-bottom: 0;
+    }
+
+
+    /* Form */
+
+    .register-form {
+        padding: 45px;
+    }
+
+    .register-heading h1 {
+        color: #263326;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .register-heading p {
+        color: #6b746b;
+    }
+
+    .form-label {
+        color: #344234;
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        border: 1px solid #dce3d8;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 0.95rem;
+        transition: 0.2s ease;
+    }
+
+    .form-control:focus {
+        border-color: #6a994e;
+        box-shadow: 0 0 0 0.2rem rgba(106, 153, 78, 0.12);
+    }
+
+    .input-group .form-control {
+        border-radius: 10px 0 0 10px;
+    }
+
+    .password-toggle {
+        border: 1px solid #dce3d8;
+        border-left: 0;
+        background: white;
+        color: #687268;
+        border-radius: 0 10px 10px 0;
+    }
+
+    .password-toggle:hover {
+        background: #f4f7f1;
+    }
+
+    .register-button {
+        background: #31572c;
+        border: none;
+        border-radius: 10px;
+        padding: 13px;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+    .register-button:hover {
+        background: #264523;
+        transform: translateY(-1px);
+    }
+
+    .login-link {
+        color: #31572c;
+    }
+
+    .login-link:hover {
+        color: #6a994e;
+    }
+
+    .required-star {
+        color: #dc3545;
+    }
+
+
+    /* Mobile */
+
+    @media (max-width: 991px) {
+
+        .register-image {
+            min-height: 300px;
+            height: 300px;
+        }
+
+        .register-form {
+            padding: 35px 30px;
+        }
+
+    }
+
+    @media (max-width: 575px) {
+
+        .register-page {
+            padding: 20px 10px;
+        }
+
+        .register-card {
+            border-radius: 18px;
+        }
+
+        .register-image {
+            min-height: 240px;
+            height: 240px;
+        }
+
+        .register-image-content {
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+        }
+
+        .register-image-content h2 {
+            font-size: 1.5rem;
+        }
+
+        .register-form {
+            padding: 28px 20px;
+        }
+
+        .register-heading h1 {
+            font-size: 1.6rem;
+        }
+
+    }
+
+</style>
+
+
+<div class="register-page">
+
+    <div class="register-card">
+
+        <div class="row g-0">
+
+
+            <!-- ========================= -->
+            <!-- LEFT IMAGE -->
+            <!-- ========================= -->
+
+            <div class="col-lg-5">
+
+                <div class="register-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6"
+                        alt="Mounam Natural Farm"
+                    >
+
+                    <div class="register-image-overlay"></div>
+
+                    <div class="register-image-content">
+
+                        <h2>
+                            Welcome to Mounam
+                        </h2>
+
+                        <p>
+                            Create your account and become part
+                            of our natural farm experience.
                         </p>
+
                     </div>
 
-                    <form method="POST" enctype="multipart/form-data">
+                </div>
+
+            </div>
+
+
+            <!-- ========================= -->
+            <!-- RIGHT FORM -->
+            <!-- ========================= -->
+
+            <div class="col-lg-7">
+
+                <div class="register-form">
+
+
+                    <!-- Heading -->
+
+                    <div class="register-heading mb-4">
+
+                        <span
+                            class="text-uppercase fw-semibold small"
+                            style="color: #6a994e;">
+                            Join Us
+                        </span>
+
+                        <h1 class="mt-2 mb-2">
+                            Create Your Account
+                        </h1>
+
+                        <p class="mb-0">
+                            Register to access your Mounam Natural Farm account.
+                        </p>
+
+                    </div>
+
+
+                    <form
+                        method="POST"
+                        enctype="multipart/form-data">
 
                         {% csrf_token %}
 
+
                         <!-- Username -->
+
                         <div class="mb-3">
-                            <label for="username" class="form-label fw-semibold">
+
+                            <label
+                                for="username"
+                                class="form-label fw-semibold">
+
                                 Username
+                                <span class="required-star">*</span>
+
                             </label>
 
                             <input
                                 type="text"
-                                class="form-control form-control-lg"
+                                class="form-control"
                                 id="username"
-                                name="username" 
+                                name="username"
                                 placeholder="Enter your username"
                                 required
                             >
+
                         </div>
 
+
                         <!-- Email -->
+
                         <div class="mb-3">
-                            <label for="email" class="form-label fw-semibold">
+
+                            <label
+                                for="email"
+                                class="form-label fw-semibold">
+
                                 Email Address
+                                <span class="required-star">*</span>
+
                             </label>
 
                             <input
                                 type="email"
-                                class="form-control form-control-lg"
+                                class="form-control"
                                 id="email"
                                 name="email"
-                                placeholder="Enter your email"
+                                placeholder="Enter your email address"
                                 required
                             >
+
                         </div>
 
+
                         <!-- Phone -->
+
                         <div class="mb-3">
-                            <label for="phone" class="form-label fw-semibold">
+
+                            <label
+                                for="phone"
+                                class="form-label fw-semibold">
+
                                 Phone Number
+                                <span class="required-star">*</span>
+
                             </label>
 
                             <input
                                 type="tel"
-                                class="form-control form-control-lg"
+                                class="form-control"
                                 id="phone"
                                 name="phone"
                                 placeholder="Enter your phone number"
                                 required
                             >
+
                         </div>
+
 
                         <!-- Password -->
+
                         <div class="mb-3">
-                            <label for="password" class="form-label fw-semibold">
+
+                            <label
+                                for="password"
+                                class="form-label fw-semibold">
+
                                 Password
+                                <span class="required-star">*</span>
+
                             </label>
 
-                            <input
-                                type="password"
-                                class="form-control form-control-lg"
-                                id="password"
-                                name="password"
-                                placeholder="Create a password"
-                                required
-                            >
+                            <div class="input-group">
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Create a password"
+                                    required
+                                >
+
+                                <button
+                                    type="button"
+                                    class="btn password-toggle"
+                                    id="togglePassword">
+
+                                    <i class="bi bi-eye"
+                                       id="passwordIcon">
+                                    </i>
+
+                                </button>
+
+                            </div>
+
                         </div>
 
+
                         <!-- Profile Image -->
+
                         <div class="mb-3">
-                            <label for="profile_image" class="form-label fw-semibold">
+
+                            <label
+                                for="profile_image"
+                                class="form-label fw-semibold">
+
                                 Profile Image
                             </label>
 
@@ -105,26 +408,44 @@
                                 name="profile_image"
                                 accept="image/*"
                             >
+
+                            <div class="form-text">
+                                Optional
+                            </div>
+
                         </div>
 
+
                         <!-- Location -->
+
                         <div class="mb-3">
-                            <label for="location" class="form-label fw-semibold">
+
+                            <label
+                                for="location"
+                                class="form-label fw-semibold">
+
                                 Location
                             </label>
 
                             <input
                                 type="text"
-                                class="form-control form-control-lg"
+                                class="form-control"
                                 id="location"
                                 name="location"
                                 placeholder="Enter your location"
                             >
+
                         </div>
 
+
                         <!-- Address -->
+
                         <div class="mb-4">
-                            <label for="address" class="form-label fw-semibold">
+
+                            <label
+                                for="address"
+                                class="form-label fw-semibold">
+
                                 Address
                             </label>
 
@@ -135,30 +456,45 @@
                                 rows="3"
                                 placeholder="Enter your address"
                             ></textarea>
+
                         </div>
 
-                        <!-- Register Button -->
+
+                        <!-- Register -->
+
                         <div class="d-grid">
+
                             <button
                                 type="submit"
-                                class="btn btn-success btn-lg rounded-3"
-                            >
+                                class="btn btn-success register-button">
+
                                 Create Account
+
                             </button>
+
                         </div>
 
                     </form>
 
-                    <!-- Login Link -->
+
+                    <!-- Login -->
+
                     <div class="text-center mt-4">
-                        <p class="mb-0 text-muted">
+
+                        <span class="text-muted">
                             Already have an account?
-                            <a href="{% url 'login' %}"
-                               class="text-decoration-none fw-semibold">
-                                Login
-                            </a>
-                        </p>
+                        </span>
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="login-link text-decoration-none fw-semibold ms-1">
+
+                            Login
+
+                        </a>
+
                     </div>
+
 
                 </div>
 
@@ -169,5 +505,46 @@
     </div>
 
 </div>
+
+
+<!-- Password Toggle -->
+
+<script>
+
+    const togglePassword =
+        document.getElementById("togglePassword");
+
+    const password =
+        document.getElementById("password");
+
+    const passwordIcon =
+        document.getElementById("passwordIcon");
+
+
+    togglePassword.addEventListener("click", function () {
+
+        const type =
+            password.getAttribute("type") === "password"
+            ? "text"
+            : "password";
+
+        password.setAttribute("type", type);
+
+
+        if (type === "text") {
+
+            passwordIcon.classList.remove("bi-eye");
+            passwordIcon.classList.add("bi-eye-slash");
+
+        } else {
+
+            passwordIcon.classList.remove("bi-eye-slash");
+            passwordIcon.classList.add("bi-eye");
+
+        }
+
+    });
+
+</script>
 
 {% endblock %}

@@ -72,3 +72,55 @@ class HomePage(models.Model):
 
     def __str__(self):
         return self.title
+
+class AboutUs(models.Model):
+    id = models.PositiveSmallIntegerField(
+            primary_key=True, default=1, editable=False
+        ) 
+    # Hero Banner
+    hero_image = models.ImageField(
+        upload_to="about/"
+    )
+
+    hero_title = models.CharField(
+        max_length=200
+    )
+
+    hero_sub_title = models.CharField(
+        max_length=300
+    )
+
+    # Who We Are
+    who_we_are_image = models.ImageField(
+        upload_to="about/"
+    )
+
+    who_we_are_title = models.CharField(
+        max_length=200
+    )
+
+    who_we_are_description = models.TextField()
+
+    # Mission
+    mission_title = models.CharField(
+        max_length=200
+    )
+
+    mission_description = models.TextField()
+
+    # Vision
+    vision_title = models.CharField(
+        max_length=200
+    )
+
+    vision_description = models.TextField()
+
+    # What Makes Us Special
+    special_title = models.CharField(
+        max_length=200
+    )
+
+    special_description = models.TextField()
+
+    def __str__(self):
+        return self.hero_title

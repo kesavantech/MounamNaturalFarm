@@ -15,4 +15,5 @@ urlpatterns = [
     path("UsersList/", views.UserListView, name="user_list"),
     path("Enquires/", views.EnquireView, name="enquires"),
     path("manage_home/", views.ManageHomeView, name= "manage_home"),
+    path("about_manage/", views.AboutUsManageView, name="about_us_manage"),
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . models import User, Website, HomePage
+from . models import User, Website, HomePage,AboutUs
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -14,7 +14,9 @@ def HomeView(request):
     return render(request, "home.html", context)
 
 def AboutUsView(request):
-    return render(request, "about.html")
+    aboutus = AboutUs.objects.get(id=1)
+    return render(request, "about.html",
+                  {"aboutus":aboutus})
 
 def ContactView(request):
     return render(request, "contact.html")
@@ -55,6 +57,7 @@ def LoginView(request):
 
         try:
             user_obj = User.objects.get(email=email)
+
         except User.DoesNotExist:
             return render(
                 request,
@@ -69,7 +72,14 @@ def LoginView(request):
         )
 
         if user is not None:
+
             login(request, user)
+
+            messages.success(
+                request,
+                f"Welcome back, {user.username}! Login successful."
+            )
+
             return redirect("dashboard")
 
         return render(
@@ -79,7 +89,6 @@ def LoginView(request):
         )
 
     return render(request, "login.html")
-
 def LogoutView(request):
 
     if request.method == "POST":
@@ -189,3 +198,52 @@ def ManageHomeView(request):
             "home_data": home_data
         }
     )
+
+
+@login_required(login_url="login")
+def AboutUsManageView(request):
+    if request.user.role != "ADMIN":
+        messages.error(request, "Access Denied !")
+        return redirect("home")
+
+    aboutus, created = AboutUs.objects.get_or_create(id=1)
+    if request.method == "POST":
+        hero_image = request.FILES.get("hero_image")
+        hero_title = request.POST.get("hero_title")
+        hero_sub_title = request.POST.get("hero_sub_title")
+        who_we_are_image = request.FILES.get("who_we_are_image")
+        who_we_are_title = request.POST.get("who_we_are_title")
+        who_we_are_description = request.POST.get("who_we_are_description")
+        mission_title = request.POST.get("mission_title")
+        mission_description = request.POST.get("mission_description")
+        vision_title = request.POST.get("vision_title")
+        vision_description = request.POST.get("vision_description")
+        special_title = request.POST.get("special_title")
+        special_description = request.POST.get("special_description")
+
+        if hero_image:
+            aboutus.hero_image = hero_image
+        if who_we_are_image:
+            aboutus.who_we_are_image= who_we_are_image
+        aboutus.hero_title= hero_title
+        aboutus.hero_sub_title = hero_sub_title
+
+        aboutus.who_we_are_title = who_we_are_title
+        aboutus.who_we_are_description = who_we_are_description
+
+        aboutus.mission_title = mission_title
+        aboutus.mission_description = mission_description
+
+        aboutus.vision_title = vision_title
+        aboutus.vision_description = vision_description
+
+        aboutus.special_title = special_title
+        aboutus.special_description = special_description
+
+        aboutus.save()
+        messages.success(request, "Successfully Updated About Us Page  !")
+        return redirect("about")
+
+    return render(request, "about_manage.html",
+                  {"aboutus": aboutus})
+
