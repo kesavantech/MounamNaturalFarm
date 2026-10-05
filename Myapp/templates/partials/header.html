@@ -614,22 +614,6 @@
 
                     </li>
 
-
-                    <!-- Contact -->
-
-                    <li class="nav-item">
-
-                        <a class="nav-link"
-                           href="{% url 'contact' %}"
-                           style="color: {{ website.text_color }};">
-
-                            Contact Us
-
-                        </a>
-
-                    </li>
-
-
                     {% if request.user.is_authenticated %}
 
 
@@ -698,6 +682,24 @@
 
                     {% endif %}
 
+                    {% if request.user.role == "CLIENT"  %}
+                        
+                        <li class="nav-item">
+
+                            <a class="nav-link"
+                               href="{% url 'contact' %}"
+                               style="color: {{ website.text_color }};">
+
+                                Contact Us
+
+                            </a>
+
+                        </li>
+                    {% endif %}
+
+                {% if not user.is_authenticated or user.role != "ADMIN" %}
+                    
+                {% endif %}
 
                 </ul>
 

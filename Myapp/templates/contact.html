@@ -1,7 +1,354 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% block title %}
+    Contact Us | Mounam Natural Farm
+{% endblock %}
 
 {% block content %}
 
-<h1>Contact Us </h1>
+<style>
+
+    .contact-page {
+        background: #f4f7f1;
+        min-height: calc(100vh - 76px);
+        padding: 50px 15px;
+    }
+
+    .contact-card {
+        max-width: 1000px;
+        margin: auto;
+        background: #ffffff;
+        border: none;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
+    }
+
+    .contact-info {
+        background: #31572c;
+        color: #ffffff;
+        padding: 45px 35px;
+    }
+
+    .contact-info h2 {
+        font-weight: 700;
+    }
+
+    .contact-info p {
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.7;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-top: 28px;
+    }
+
+    .contact-icon {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 18px;
+    }
+
+    .contact-item h6 {
+        margin-bottom: 4px;
+        font-weight: 600;
+    }
+
+    .contact-item span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+    }
+
+    .contact-form {
+        padding: 45px;
+    }
+
+    .contact-form h2 {
+        color: #263326;
+        font-weight: 700;
+    }
+
+    .contact-form p {
+        color: #6b746b;
+    }
+
+    .form-label {
+        color: #344234;
+        font-size: 14px;
+    }
+
+    .form-control {
+        border: 1px solid #dce3d8;
+        border-radius: 10px;
+        padding: 12px 14px;
+    }
+
+    .form-control:focus {
+        border-color: #6a994e;
+        box-shadow: 0 0 0 0.2rem rgba(106, 153, 78, 0.12);
+    }
+
+    .contact-button {
+        background: #31572c;
+        border: none;
+        border-radius: 10px;
+        padding: 13px;
+        font-weight: 600;
+    }
+
+    .contact-button:hover {
+        background: #264523;
+    }
+
+    @media (max-width: 767px) {
+
+        .contact-page {
+            padding: 25px 10px;
+        }
+
+        .contact-info {
+            padding: 35px 25px;
+        }
+
+        .contact-form {
+            padding: 30px 25px;
+        }
+
+    }
+
+</style>
+
+
+<div class="contact-page">
+
+    <div class="contact-card">
+
+        <div class="row g-0">
+
+            <!-- Contact Information -->
+
+            <div class="col-lg-5">
+
+                <div class="contact-info h-100">
+
+                    <span class="text-uppercase small fw-semibold">
+                        Get In Touch
+                    </span>
+
+                    <h2 class="mt-2 mb-3">
+                        Contact Us
+                    </h2>
+
+                    <p>
+                        Have a question or want to know more about
+                        Mounam Natural Farm? Send us a message.
+                        We would love to hear from you.
+                    </p>
+
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+
+                        <div>
+                            <h6>Phone</h6>
+                            <span>
+                                +91 XXXXX XXXXX
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+
+                        <div>
+                            <h6>Email</h6>
+                            <span>
+                                info@mounamnaturalfarm.com
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+
+                        <div>
+                            <h6>Location</h6>
+                            <span>
+                                Mounam Natural Farm
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Contact Form -->
+
+            <div class="col-lg-7">
+
+                <div class="contact-form">
+
+                    <h2>
+                        Send Us a Message
+                    </h2>
+
+                    <p class="mb-4">
+                        Fill in the details below and we will
+                        get back to you soon.
+                    </p>
+
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+
+                        <!-- Name -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="name"
+                                class="form-label fw-semibold"
+                            >
+                                Name
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Phone -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="phone"
+                                class="form-label fw-semibold"
+                            >
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                class="form-control"
+                                id="phone"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Email -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="email"
+                                class="form-label fw-semibold"
+                            >
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- Message -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="message"
+                                class="form-label fw-semibold"
+                            >
+                                Message
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="message"
+                                name="message"
+                                rows="5"
+                                placeholder="Write your message..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- Submit -->
+
+                        <div class="d-grid">
+
+                            <button
+                                type="submit"
+                                class="btn btn-success contact-button"
+                            >
+
+                                <i class="bi bi-send me-2"></i>
+
+                                Send Message
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

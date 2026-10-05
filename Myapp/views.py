@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . models import User, Website, HomePage,AboutUs
+from . models import User, Website, HomePage,AboutUs, Enquiry
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -18,7 +18,29 @@ def AboutUsView(request):
     return render(request, "about.html",
                   {"aboutus":aboutus})
 
-def ContactView(request):
+def ContactUsView(request):
+
+    if request.method == "POST":
+
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
+
+        Enquiry.objects.create(
+            name=name,
+            phone=phone,
+            email=email,
+            message=message
+        )
+
+        messages.success(
+            request,
+            "Your message has been sent successfully!"
+        )
+
+        return redirect("contact")
+
     return render(request, "contact.html")
 
 def RegisterView(request):
@@ -143,12 +165,19 @@ def ManageBaseView(request):
 
 
 @login_required(login_url="login")
-def EnquireView(request):
-    print("Username:",request.user.username)
-    if request.user.role != "ADMIN":
-        return redirect("home")
-    return render(request, "enquire.html")
+def EnquiryView(request):
 
+    if request.user.role != "ADMIN":
+        messages.error(request, "Access Denied!")
+        return redirect("home")
+
+    enquiries = Enquiry.objects.all().order_by("-created_at")
+
+    return render(
+        request,
+        "enquiry.html",
+        {"enquiries": enquiries}
+    )
 
 @login_required(login_url="login")
 def ManageHomeView(request):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Website, HomePage, AboutUs
+from .models import User, Website, HomePage, AboutUs, Enquiry
 
 admin.site.register(User)
 
@@ -11,4 +11,5 @@ class WebsiteAdmin(admin.ModelAdmin):
 
 admin.site.register(AboutUs)
 admin.site.register(HomePage)
+admin.site.register(Enquiry)
 
