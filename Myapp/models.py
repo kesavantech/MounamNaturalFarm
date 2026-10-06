@@ -139,4 +139,41 @@ class Enquiry(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
+class Activity(models.Model):
+
+    ACTIVITY_TYPES = [
+        ("school_visit", "School Visit"),
+        ("medical_camp", "Medical Camp"),
+        ("nature_immersion", "Nature Immersion Program"),
+        ("wellness_retreat", "Wellness Retreat"),
+    ]
+
+    activity_type = models.CharField(
+        max_length=50,
+        choices=ACTIVITY_TYPES
+    )
+
+    title = models.CharField(max_length=200)
+
+    sub_title = models.CharField(max_length=300)
+
+    video = models.FileField(
+        upload_to="activities/videos/",
+        blank=True,
+        null=True
+    )
+
+    hero_image = models.ImageField(
+        upload_to="activities/"
+    )
+
+    description = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title

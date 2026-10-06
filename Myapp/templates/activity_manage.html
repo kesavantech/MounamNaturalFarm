@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row align-items-stretch">
+
+        <!-- Sidebar -->
+
+        <div class="col-auto p-0 d-flex">
+
+            {% include "partials/side.html" %}
+
+        </div>
+
+
+        <!-- Main Content -->
+
+        <main class="col py-4 py-md-5">
+
+            <div class="container-fluid">
+
+                <div class="mb-4">
+
+                    <h3 class="fw-bold">
+                        Manage Activities
+                    </h3>
+
+                    <p class="text-muted">
+                        Add activities for your website.
+                    </p>
+
+                </div>
+
+
+                <div class="card border-0 shadow-sm rounded-4">
+
+                    <div class="card-body p-4">
+
+                        <form method="POST"
+                              enctype="multipart/form-data">
+
+                            {% csrf_token %}
+
+
+                            <!-- Activity Type -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Activity Type
+                                </label>
+
+                                <select name="activity_type"
+                                        class="form-select"
+                                        required>
+
+                                    <option value="school_visit">
+                                        School Visit
+                                    </option>
+
+                                    <option value="medical_camp">
+                                        Medical Camp
+                                    </option>
+
+                                    <option value="nature_immersion">
+                                        Nature Immersion Program
+                                    </option>
+
+                                    <option value="wellness_retreat">
+                                        Wellness Retreat
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <!-- Title -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Title
+                                </label>
+
+                                <input type="text"
+                                       name="title"
+                                       class="form-control"
+                                       placeholder="Enter activity title"
+                                       required>
+
+                            </div>
+
+
+                            <!-- Subtitle -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Sub Title
+                                </label>
+
+                                <input type="text"
+                                       name="sub_title"
+                                       class="form-control"
+                                       placeholder="Enter activity subtitle"
+                                       required>
+
+                            </div>
+
+
+                            <!-- Image -->
+
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Activity Image
+                                </label>
+
+                                <input type="file"
+                                       name="hero_image"
+                                       class="form-control"
+                                       accept="image/*"
+                                       required>
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label class="form-label fw-semibold">
+                                    Activity Video
+                                </label>
+
+                                <input type="file"
+                                    name="video"
+                                    class="form-control"
+                                    accept="video/*">
+
+                            </div>
+
+
+                            <!-- Description -->
+
+                            <div class="mb-4">
+
+                                <label class="form-label fw-semibold">
+                                    Description
+                                </label>
+
+                                <textarea name="description"
+                                          class="form-control"
+                                          rows="6"
+                                          placeholder="Enter activity description"
+                                          required></textarea>
+
+                            </div>
+
+
+                            <!-- Submit -->
+
+                            <button type="submit"
+                                    class="btn btn-success px-4">
+
+                                Add Activity
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -441,6 +441,33 @@
 
     }
 
+    /* Activities DropDown Navs Styles */
+
+    .activities-dropdown:hover .activities-menu {
+        display: block;
+        margin-top: 0;
+    }
+
+    .activities-menu {
+        border: none;
+        border-radius: 12px;
+        padding: 8px;
+        min-width: 230px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .activities-menu .dropdown-item {
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: 0.2s ease;
+    }
+
+    .activities-menu .dropdown-item:hover {
+        background-color: #F0F4EC;
+        color: #31572C;
+    }
+
 </style>
 
 
@@ -614,6 +641,52 @@
 
                     </li>
 
+                     <!-- Activities -->
+
+                    <li class="nav-item dropdown activities-dropdown">
+
+                        <a class="nav-link dropdown-toggle"
+                        href="#"
+                        id="activitiesDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        style="color: {{ website.text_color }};">
+
+                            Activities
+
+                        </a>
+
+                        <ul class="dropdown-menu activities-menu"
+                            aria-labelledby="activitiesDropdown">
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    School Visit
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Medical Camp
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Nature Immersion Program
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Wellness Retreat
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </li>
                     {% if request.user.is_authenticated %}
 
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . models import User, Website, HomePage,AboutUs, Enquiry
+from . models import User, Website, HomePage,AboutUs, Enquiry, Activity
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -17,6 +17,42 @@ def AboutUsView(request):
     aboutus = AboutUs.objects.get(id=1)
     return render(request, "about.html",
                   {"aboutus":aboutus})
+
+
+
+@login_required(login_url="login")
+def ManageActivityView(request):
+
+    if request.user.role != "ADMIN":
+        messages.error(request, "Access Denied!")
+        return redirect("home")
+
+    if request.method == "POST":
+
+        activity_type = request.POST.get("activity_type")
+        title = request.POST.get("title")
+        sub_title = request.POST.get("sub_title")
+        video = request.FILES.get("video")
+        description = request.POST.get("description")
+        hero_image = request.FILES.get("hero_image")
+
+        Activity.objects.create(
+            activity_type=activity_type,
+            title=title,
+            sub_title=sub_title,
+            hero_image=hero_image,
+            video = video,  
+            description=description
+        )
+
+        messages.success(
+            request,
+            "Activity added successfully!"
+        )
+
+        return redirect("manage_activity")
+
+    return render(request, "activity_manage.html")
 
 def ContactUsView(request):
 
