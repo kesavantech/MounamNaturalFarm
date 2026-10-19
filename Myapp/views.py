@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . models import User, Website, HomePage,AboutUs, Enquiry, Activity
+from . models import User, Website, HomePage,AboutUs, Enquiry, Activity, SocialMedia
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -329,3 +329,29 @@ def AboutUsManageView(request):
     return render(request, "about_manage.html",
                   {"aboutus": aboutus})
 
+def SocialMediaView(request):
+
+    if request.method == "POST":
+
+        name = request.POST.get("name", "").strip()
+        url = request.POST.get("url", "").strip()
+        logo = request.FILES.get("logo")
+        is_active = request.POST.get("is_active") == "on"
+
+
+        # Save social media details
+        SocialMedia.objects.create(
+            name=name,
+            url=url,
+            logo=logo,
+            is_active=is_active
+        )
+
+        messages.success(
+            request,
+            "Social media link added successfully!"
+        )
+
+        return redirect("social_media")
+
+    return render(request, "social_media.html")

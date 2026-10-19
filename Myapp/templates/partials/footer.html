@@ -1,51 +1,202 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer</title>
-    
-</head>
-<body>
 
-<footer class="bg-dark text-white mt-5">
-    <div class="container py-4">
-        
-        <div class="row">
+<footer class="mounam-footer mt-5"
+        style="
+            background-color: {{ website.bg_color }};
+            color: {{ website.text_color }};
+            font-size: {{ website.font_size }}px;
+        ">
+
+    <div class="container py-5">
+
+        <div class="row g-4 align-items-start">
 
             <!-- Farm Information -->
-            <div class="col-md-6">
-                <h5>{{ website.heading }}</h5>
-                <p>
-                    Naturally grown products with care from our farm to your home.
+            <div class="col-12 col-md-6 col-lg-5">
+
+                <h4 class="fw-bold mb-3">
+                    {{ website.heading }}
+                </h4>
+
+                {% if website.sub_heading %}
+                    <p class="mb-3">
+                        {{ website.sub_heading }}
+                    </p>
+                {% endif %}
+
+                <p class="mb-0">
+                    Naturally grown products with care
+                    from our farm to your home.
                 </p>
+
             </div>
 
             <!-- Quick Links -->
-            <div class="col-md-6">
-                <h5>Quick Links</h5>
+            <div class="col-6 col-md-3 col-lg-3">
 
-                <a href="{% url 'home' %}" class="text-white text-decoration-none d-block">
+                <h5 class="fw-bold mb-3">
+                    Quick Links
+                </h5>
+
+                <a href="{% url 'home' %}"
+                   class="footer-link d-block mb-2">
                     Home
                 </a>
 
-                <a href="{% url 'about' %}" class="text-white text-decoration-none d-block">
+                <a href="{% url 'about' %}"
+                   class="footer-link d-block mb-2">
                     About Us
                 </a>
+
+            </div>
+
+            <!-- Social Media -->
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <h5 class="fw-bold mb-3">
+                    Follow Us
+                </h5>
+
+                <div class="footer-social-links d-flex flex-wrap
+                            gap-3 align-items-center">
+
+                    {% for social in social_media_links %}
+
+                        <a href="{{ social.url }}"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           title="{{ social.name }}"
+                           aria-label="{{ social.name }}"
+                           class="footer-social-link">
+
+                            {% if social.logo %}
+
+                                <img
+                                    src="{{ social.logo.url }}"
+                                    alt="{{ social.name }} logo"
+                                    class="footer-social-logo">
+
+                            {% elif social.icon %}
+
+                                <i class="{{ social.icon }}"
+                                   aria-hidden="true"></i>
+
+                            {% else %}
+
+                                <span class="footer-social-name">
+                                    {{ social.name }}
+                                </span>
+
+                            {% endif %}
+
+                        </a>
+
+                    {% empty %}
+
+                        <p class="mb-0">
+                            Social media links coming soon.
+                        </p>
+
+                    {% endfor %}
+
+                </div>
+
             </div>
 
         </div>
 
-        <hr>
+        <!-- Divider -->
+        <hr class="footer-divider">
 
+        <!-- Copyright -->
         <div class="text-center">
             <p class="mb-0">
-                © 2026 Mounam Natural Farms. All Rights Reserved.
+                &copy; {% now "Y" %}
+                {{ website.heading }}. All Rights Reserved.
             </p>
         </div>
 
     </div>
+
 </footer>
 
-</body>
-</html>
+
+<!-- Footer Styles -->
+<style>
+    /* Footer links */
+    .mounam-footer .footer-link {
+        color: inherit;
+        text-decoration: none;
+        transition: opacity 0.2s ease;
+    }
+
+    .mounam-footer .footer-link:hover {
+        opacity: 0.7;
+    }
+
+    /* Social media links */
+    .mounam-footer .footer-social-links {
+        row-gap: 12px;
+    }
+
+    .mounam-footer .footer-social-link {
+        width: 42px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        color: inherit;
+        text-decoration: none;
+        overflow: hidden;
+        transition: transform 0.2s ease,
+                    opacity 0.2s ease;
+    }
+
+    .mounam-footer .footer-social-link:hover {
+        transform: translateY(-3px);
+        opacity: 0.75;
+    }
+
+    /* Uploaded social media logos */
+    .mounam-footer .footer-social-logo {
+        width: 26px;
+        height: 26px;
+        object-fit: contain;
+        display: block;
+    }
+
+    /* Bootstrap icons */
+    .mounam-footer .footer-social-link i {
+        font-size: 20px;
+        line-height: 1;
+    }
+
+    /* Fallback platform name */
+    .mounam-footer .footer-social-name {
+        font-size: 10px;
+        text-align: center;
+        overflow-wrap: anywhere;
+    }
+
+    /* Divider follows dynamic text color */
+    .mounam-footer .footer-divider {
+        border: 0;
+        border-top: 1px solid currentColor;
+        opacity: 0.3;
+        margin: 30px 0 20px;
+    }
+
+    /* Mobile adjustments */
+    @media (max-width: 575.98px) {
+        .mounam-footer .container {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .mounam-footer .footer-social-link {
+            width: 40px;
+            height: 40px;
+        }
+    }
+</style>

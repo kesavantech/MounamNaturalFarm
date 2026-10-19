@@ -177,3 +177,33 @@ class Activity(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class SocialMedia(models.Model):
+
+    name = models.CharField(
+        max_length=50
+    )
+
+    url = models.URLField(
+        max_length=500
+    )
+
+    logo = models.ImageField(upload_to="social_media/",blank=True,null=True)
+
+    is_active = models.BooleanField(
+        default=True
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Social Media"
+        verbose_name_plural = "Social Media"
+        ordering = ["name"]
+

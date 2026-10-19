@@ -35,16 +35,7 @@
 
     <div class="d-flex flex-column h-100 p-3">
 
-        <div class="d-none d-md-flex align-items-center gap-2 mb-4">
-            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
-                <i class="bi bi-speedometer2 fs-5"></i>
-            </div>
-            <div>
-                <h5 class="mb-0">Dashboard</h5>
-                <small class="text-secondary">Mounam Natural Farm</small>
-            </div>
-        </div>
-
+   
         <div class="bg-secondary bg-opacity-25 rounded-3 p-3 mb-4">
             <div class="d-flex align-items-center gap-2">
                 <div class="bg-light text-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
@@ -77,6 +68,9 @@
                 </a>
                 <a href="{% url 'manage_activity' %}" class="nav-link text-white rounded-3 d-flex align-items-center gap-3 py-2 px-3">
                     <i class="bi bi-chat-left-text-fill"></i><span>Manage Activity</span>
+                </a>
+                <a href="{% url 'social_media' %}" class="nav-link text-white rounded-3 d-flex align-items-center gap-3 py-2 px-3">
+                    <i class="bi bi-chat-left-text-fill"></i><span>Social Media</span>
                 </a>
             </nav>
         {% else %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Website, HomePage, AboutUs, Enquiry, Activity
+from .models import User, Website, HomePage, AboutUs, Enquiry, Activity, SocialMedia
 
 admin.site.register(User)
 
@@ -13,5 +13,6 @@ admin.site.register(AboutUs)
 admin.site.register(HomePage)
 admin.site.register(Enquiry)
 admin.site.register(Activity)
+admin.site.register(SocialMedia)
 
 
