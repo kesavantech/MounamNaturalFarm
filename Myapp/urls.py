@@ -20,4 +20,5 @@ urlpatterns = [
     path("manage_home/", views.ManageHomeView, name= "manage_home"),
     path("about_manage/", views.AboutUsManageView, name="about_us_manage"),
     path("manage-activity/",views.ManageActivityView,name="manage_activity"),
+    path("activities/<str:activity_type>/",views. ActivityView,name="activity"),
 ]

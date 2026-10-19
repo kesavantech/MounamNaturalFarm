@@ -41,7 +41,7 @@ def ManageActivityView(request):
             title=title,
             sub_title=sub_title,
             hero_image=hero_image,
-            video = video,  
+            video = video, 
             description=description
         )
 
@@ -53,6 +53,22 @@ def ManageActivityView(request):
         return redirect("manage_activity")
 
     return render(request, "activity_manage.html")
+
+
+def ActivityView(request, activity_type):
+
+    activities = Activity.objects.filter(
+        activity_type=activity_type
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "activity.html",
+        {
+            "activities": activities,
+            "activity_type": activity_type
+        }
+    )
 
 def ContactUsView(request):
 
@@ -120,7 +136,7 @@ def LoginView(request):
             return render(
                 request,
                 "login.html",
-                {"error": "Please enter correct credentials!"}
+                {"show_register_modal": True}
             )
 
         user = authenticate(
@@ -140,13 +156,14 @@ def LoginView(request):
 
             return redirect("dashboard")
 
-        return render(
+        messages.error(
             request,
-            "login.html",
-            {"error": "Please enter correct credentials!"}
+            "Please enter correct credentials!"
         )
+        return redirect("login")
 
     return render(request, "login.html")
+
 def LogoutView(request):
 
     if request.method == "POST":
