@@ -12,6 +12,7 @@ urlpatterns = [
     path("Logout/", views.LogoutView, name="logout"), 
 
     path("dashboard/", views.DashboardView, name="dashboard"), 
+    path("booknow/", views.BookNoowView, name="book_now"),
 
     # Admin
     path("ManageBase/", views.ManageBaseView, name="manage_base"),

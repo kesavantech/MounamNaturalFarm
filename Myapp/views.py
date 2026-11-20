@@ -4,8 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-
+from django.db import transaction
 # Create your views here.
 
 def HomeView(request):
@@ -199,6 +198,10 @@ def ManageBaseView(request):
             bg_color = request.POST.get("bg_color")
             font_size = request.POST.get("font_size")
             description = request.POST.get("description")
+            call_no = request.POST.get("call_no")
+            whatsapp_no = request.POST.get("whatsapp_no")
+            email = request.POST.get("email")
+            location = request.POST.get("location")
 
             if logo:
                 website.logo = logo
@@ -209,6 +212,10 @@ def ManageBaseView(request):
             website.bg_color = bg_color
             website.font_size = font_size
             website.description = description
+            website.call_no = call_no
+            website.whatsapp_no = whatsapp_no
+            website.email = email
+            website.location = location
 
             website.save()
             messages.success(request, "Website Settings Updated Successfully !")
@@ -216,6 +223,8 @@ def ManageBaseView(request):
     return render(request, "manage_base.html", 
                   {"website": website})
 
+def BookNoowView(request):
+    return render(request, "book_now.html")
 
 @login_required(login_url="login")
 def EnquiryView(request):
@@ -232,46 +241,144 @@ def EnquiryView(request):
         {"enquiries": enquiries}
     )
 
+
 @login_required(login_url="login")
 def ManageHomeView(request):
 
     if request.user.role != "ADMIN":
-        messages.error(request, "Access Denied !")
+        messages.error(request, "Access Denied!")
         return redirect("home")
 
     if request.method == "POST":
 
-        # Get all submitted values
-        main_images = request.FILES.getlist("main_image")
-        titles = request.POST.getlist("title")
-        sub_titles = request.POST.getlist("sub_title")
-        bullet_1 = request.POST.getlist("bullet_point_1")
-        bullet_2 = request.POST.getlist("bullet_point_2")
-        bullet_3 = request.POST.getlist("bullet_point_3")
+        section_count = int(request.POST.get("section_count", 0))
 
-        # Delete old Home Page data
-        HomePage.objects.all().delete()
+        if section_count < 1:
+            messages.error(request, "At least one Home Section is required.")
+            return redirect("manage_home")
 
-        # Create new Home Page data
-        for i in range(len(titles)):
+        submitted_sections = []
+        submitted_ids = []
+        errors = []
 
-            HomePage.objects.create(
-                main_image=main_images[i],
-                title=titles[i],
-                sub_title=sub_titles[i],
-                bullet_point_1=bullet_1[i],
-                bullet_point_2=bullet_2[i],
-                bullet_point_3=bullet_3[i]
+        existing_objects = {
+            str(obj.id): obj
+            for obj in HomePage.objects.all()
+        }
+
+        # Validate all submitted sections before modifying the database
+        for i in range(section_count):
+
+            section_id = request.POST.get(f"sections-{i}-id", "").strip()
+
+            title = request.POST.get(f"sections-{i}-title", "").strip()
+            sub_title = request.POST.get(f"sections-{i}-sub_title", "").strip()
+
+            bullet_1 = request.POST.get(f"sections-{i}-bullet_point_1", "").strip()
+            bullet_2 = request.POST.get(f"sections-{i}-bullet_point_2", "").strip()
+            bullet_3 = request.POST.get(f"sections-{i}-bullet_point_3", "").strip()
+
+            main_image = request.FILES.get(f"sections-{i}-main_image")
+
+            if not all([title, sub_title, bullet_1, bullet_2, bullet_3]):
+                errors.append(f"Please complete all fields in Section {i + 1}.")
+                continue
+
+            obj = None
+
+            if section_id:
+
+                obj = existing_objects.get(section_id)
+
+                if not obj:
+                    errors.append(f"Invalid Home Section ID in Section {i + 1}.")
+                    continue
+
+                if section_id in submitted_ids:
+                    errors.append("Duplicate Home Section detected.")
+                    continue
+
+                submitted_ids.append(section_id)
+
+                if not obj.main_image and not main_image:
+                    errors.append(f"Please upload an image for Section {i + 1}.")
+
+            else:
+
+                if not main_image:
+                    errors.append(f"Please upload an image for new Section {i + 1}.")
+
+            submitted_sections.append({
+                "object": obj,
+                "main_image": main_image,
+                "title": title,
+                "sub_title": sub_title,
+                "bullet_point_1": bullet_1,
+                "bullet_point_2": bullet_2,
+                "bullet_point_3": bullet_3,
+            })
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+
+            return redirect("manage_home")
+
+        try:
+            with transaction.atomic():
+
+                # Delete only sections removed by the admin
+                HomePage.objects.exclude(
+                    id__in=submitted_ids
+                ).filter(
+                    id__in=existing_objects.keys()
+                ).delete()
+
+                # Update existing sections or create new ones
+                for section in submitted_sections:
+
+                    obj = section["object"]
+
+                    if obj:
+
+                        # Update existing section
+                        if section["main_image"]:
+                            obj.main_image = section["main_image"]
+
+                        obj.title = section["title"]
+                        obj.sub_title = section["sub_title"]
+                        obj.bullet_point_1 = section["bullet_point_1"]
+                        obj.bullet_point_2 = section["bullet_point_2"]
+                        obj.bullet_point_3 = section["bullet_point_3"]
+
+                        obj.save()
+
+                    else:
+
+                        # Create new section
+                        HomePage.objects.create(
+                            main_image=section["main_image"],
+                            title=section["title"],
+                            sub_title=section["sub_title"],
+                            bullet_point_1=section["bullet_point_1"],
+                            bullet_point_2=section["bullet_point_2"],
+                            bullet_point_3=section["bullet_point_3"],
+                        )
+
+            messages.success(
+                request,
+                "Home Page Sections Updated Successfully!"
             )
 
-        messages.success(
-            request,
-            "Home Page Updated Successfully !"
-        )
+        except Exception:
+            messages.error(
+                request,
+                "Something went wrong. Your changes could not be saved."
+            )
 
         return redirect("manage_home")
 
-    home_data = HomePage.objects.all()
+    home_data = HomePage.objects.all().order_by("id")
 
     return render(
         request,
@@ -280,7 +387,6 @@ def ManageHomeView(request):
             "home_data": home_data
         }
     )
-
 
 @login_required(login_url="login")
 def AboutUsManageView(request):

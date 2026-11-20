@@ -156,58 +156,43 @@
                         We would love to hear from you.
                     </p>
 
-
+                    <!-- PHONE -->
                     <div class="contact-item">
-
-                        <div class="contact-icon">
-                            <i class="bi bi-telephone"></i>
-                        </div>
-
                         <div>
                             <h6>Phone</h6>
-                            <span>
-                                +91 XXXXX XXXXX
-                            </span>
+                            <a href="tel:{{ website.call_no }}"
+                            class="text-decoration-none">
+                                {{ website.call_no }}
+                            </a>
                         </div>
-
                     </div>
 
-
+                    <!-- EMAIL -->
                     <div class="contact-item">
-
-                        <div class="contact-icon">
-                            <i class="bi bi-envelope"></i>
-                        </div>
-
                         <div>
                             <h6>Email</h6>
-                            <span>
-                                info@mounamnaturalfarm.com
-                            </span>
+                            <a href="mailto:{{ website.email }}"
+                            class="text-decoration-none">
+                                {{ website.email }}
+                            </a>
                         </div>
-
                     </div>
 
-
+                    <!-- LOCATION -->
                     <div class="contact-item">
-
-                        <div class="contact-icon">
-                            <i class="bi bi-geo-alt"></i>
-                        </div>
-
                         <div>
                             <h6>Location</h6>
-                            <span>
-                                Mounam Natural Farm
-                            </span>
+                            <a href="https://www.google.com/maps/search/?api=1&query={{ website.location|urlencode }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-decoration-none">
+                                {{ website.location }}
+                            </a>
                         </div>
 
                     </div>
-
                 </div>
-
             </div>
-
 
             <!-- Contact Form -->
 

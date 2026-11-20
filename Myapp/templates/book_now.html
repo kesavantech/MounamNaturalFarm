@@ -1,0 +1,232 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .booking-section {
+        background: #f8f9f5;
+        padding: 60px 15px;
+    }
+
+    .booking-card {
+        max-width: 850px;
+        margin: auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    }
+
+    .booking-title {
+        color: #315b35;
+        font-weight: 700;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .form-control,
+    .form-select {
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .booking-btn {
+        background: #315b35;
+        color: white;
+        padding: 13px;
+        border-radius: 8px;
+        font-weight: 600;
+        border: none;
+    }
+
+    .booking-btn:hover {
+        background: #244529;
+        color: white;
+    }
+</style>
+
+<section class="booking-section">
+
+    <div class="booking-card">
+
+        <div class="text-center mb-4">
+            <h2 class="booking-title">Book Your Visit</h2>
+            <p class="text-muted">
+                Plan your peaceful experience at Mounam Natural Farm.
+            </p>
+        </div>
+
+        <form>
+
+            <div class="row g-3">
+
+                <!-- Full Name -->
+                <div class="col-md-6">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-control"
+                           placeholder="Enter your full name">
+                </div>
+
+                <!-- Mobile Number -->
+                <div class="col-md-6">
+                    <label class="form-label">Mobile Number *</label>
+                    <input type="tel" class="form-control"
+                           placeholder="Enter your mobile number">
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" class="form-control"
+                           placeholder="Enter your email address">
+                </div>
+
+                <!-- Booking Date -->
+                <div class="col-md-6">
+                    <label class="form-label">Preferred Booking Date *</label>
+                    <input type="date" class="form-control">
+                </div>
+
+                <!-- Visitors -->
+                <div class="col-md-6">
+                    <label class="form-label">Number of Visitors *</label>
+                    <input type="number" class="form-control"
+                           min="1" placeholder="Enter number of visitors">
+                </div>
+
+                <!-- Purpose of Visit -->
+                <div class="col-md-6">
+                    <label class="form-label">Purpose of Visit *</label>
+                    <select class="form-select" id="purpose" required>
+                        <option value="">Select purpose</option>
+                        <option value="school">School Visit</option>
+                        <option value="family">Family Visit</option>
+                        <option value="corporate">Corporate Visit</option>
+                    </select>
+                </div>
+
+<!-- Payment Summary -->
+<div class="col-12" id="paymentSection" style="display:none;">
+
+    <div class="p-4 rounded-3"
+         style="background:#f1f6ef; border:1px solid #d5e3d2;">
+
+        <h5 class="mb-3" style="color:#315b35;">
+            Booking Payment Summary
+        </h5>
+
+        <div class="d-flex justify-content-between mb-2">
+            <span>Total Booking Amount</span>
+            <strong id="totalAmount">₹0</strong>
+        </div>
+
+        <div class="d-flex justify-content-between mb-2">
+            <span>Advance Payment (15%)</span>
+            <strong id="advanceAmount" class="text-success">₹0</strong>
+        </div>
+
+        <div class="d-flex justify-content-between mb-3">
+            <span>Remaining Balance</span>
+            <strong id="remainingAmount">₹0</strong>
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Pay Now</h5>
+            <h3 class="mb-0 text-success" id="payNow">₹0</h3>
+        </div>
+
+        <small class="text-muted">
+            Pay 15% advance to confirm your booking.
+        </small>
+
+    </div>
+</div>
+
+                <!-- Food Requirements -->
+                <div class="col-12">
+                    <label class="form-label">Food Requirements</label>
+                    <select class="form-select">
+                        <option value="">Select an option</option>
+                        <option>Vegetarian</option>
+                        <option>Non-Vegetarian</option>
+                        <option>No Food Required</option>
+                    </select>
+                </div>
+
+                <!-- Message -->
+                <div class="col-12">
+                    <label class="form-label">Additional Message</label>
+                    <textarea class="form-control" rows="4"
+                              placeholder="Any special requirements?"></textarea>
+                </div>
+
+                <!-- Submit -->
+                <div class="col-12 mt-4">
+                    <button type="button"
+                            class="btn booking-btn w-100">
+                        Book Now
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- Payment auto calculation script -->
+<script>
+    const purpose = document.getElementById("purpose");
+
+    const paymentSection = document.getElementById("paymentSection");
+
+    const prices = {
+        school: 5000,
+        family: 7000,
+        corporate: 10000
+    };
+
+    purpose.addEventListener("change", function () {
+
+        const selectedPurpose = this.value;
+
+        if (prices[selectedPurpose] !== undefined) {
+
+            const total = prices[selectedPurpose];
+
+            const advance = total * 0.15;
+
+            const remaining = total - advance;
+
+            document.getElementById("totalAmount").textContent =
+                "₹" + total.toLocaleString("en-IN");
+
+            document.getElementById("advanceAmount").textContent =
+                "₹" + advance.toLocaleString("en-IN");
+
+            document.getElementById("remainingAmount").textContent =
+                "₹" + remaining.toLocaleString("en-IN");
+
+            document.getElementById("payNow").textContent =
+                "₹" + advance.toLocaleString("en-IN");
+
+            paymentSection.style.display = "block";
+
+        } else {
+
+            paymentSection.style.display = "none";
+
+        }
+
+    });
+</script>
+
+
+{% endblock %}

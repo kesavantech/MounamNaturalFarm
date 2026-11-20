@@ -46,6 +46,7 @@ class Website(models.Model):
     id = models.PositiveSmallIntegerField(
         primary_key=True, default=1, editable=False
     ) 
+   
 # primary_key=True  # Unique ID | default=1         # Always ID 1 | editable=False    # Cannot edit in Admin
     logo = models.ImageField(upload_to="logo")
     logo_radius = models.PositiveIntegerField(default=60)
@@ -55,6 +56,11 @@ class Website(models.Model):
     font_size  = models.PositiveIntegerField(default=16)
     bg_color = models.CharField( max_length=20, default="#ffffff" )
     description = models.TextField(blank=True, default="")
+    # Contact Details
+    call_no = models.CharField(max_length=20, blank=True, default="")
+    whatsapp_no = models.CharField(max_length=20, blank=True, default="")
+    email = models.EmailField(blank=True, default="")
+    location = models.TextField(blank=True, default="")
 
     def __str__(self): 
         return self.heading
@@ -72,6 +78,7 @@ class HomePage(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class AboutUs(models.Model):
     id = models.PositiveSmallIntegerField(

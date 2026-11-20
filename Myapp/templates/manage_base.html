@@ -184,6 +184,69 @@
                         </div>
 
                         <!-- =========================
+                            CONTACT DETAILS
+                        ========================= -->
+
+                        <!-- CALL NUMBER -->
+                        <div class="mb-4">
+                            <label for="call_no" class="form-label fw-semibold">
+                                Call Number
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="call_no"
+                                name="call_no"
+                                value="{{ website.call_no }}"
+                                placeholder="Enter contact number">
+                        </div>
+
+                        <!-- WHATSAPP NUMBER -->
+                        <div class="mb-4">
+                            <label for="whatsapp_no" class="form-label fw-semibold">
+                                WhatsApp Number
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="whatsapp_no"
+                                name="whatsapp_no"
+                                value="{{ website.whatsapp_no }}"
+                                placeholder="Enter WhatsApp number with country code">
+                            <div class="form-text">
+                                Example: 919876543210
+                            </div>
+                        </div>
+
+                        <!-- EMAIL -->
+                        <div class="mb-4">
+                            <label for="email" class="form-label fw-semibold">
+                                Email Address
+                            </label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                value="{{ website.email }}"
+                                placeholder="Enter email address">
+                        </div>
+
+                        <!-- LOCATION -->
+                        <div class="mb-4">
+                            <label for="location" class="form-label fw-semibold">
+                                Farm Location
+                            </label>
+                            <textarea
+                                class="form-control"
+                                id="location"
+                                name="location"
+                                rows="3"
+                                placeholder="Enter farm address">{{ website.location }}</textarea>
+                        </div>
+
+
+                        <!-- =========================
                              BUTTONS
                         ========================= -->
                         <div class="d-flex flex-column flex-sm-row gap-2 mt-4">
