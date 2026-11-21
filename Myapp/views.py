@@ -390,50 +390,49 @@ def ManageHomeView(request):
 
 @login_required(login_url="login")
 def AboutUsManageView(request):
+
     if request.user.role != "ADMIN":
         messages.error(request, "Access Denied !")
         return redirect("home")
 
+    # Get existing About Us object
     aboutus, created = AboutUs.objects.get_or_create(id=1)
+
     if request.method == "POST":
-        hero_image = request.FILES.get("hero_image")
-        hero_title = request.POST.get("hero_title")
-        hero_sub_title = request.POST.get("hero_sub_title")
-        who_we_are_image = request.FILES.get("who_we_are_image")
-        who_we_are_title = request.POST.get("who_we_are_title")
-        who_we_are_description = request.POST.get("who_we_are_description")
-        mission_title = request.POST.get("mission_title")
-        mission_description = request.POST.get("mission_description")
-        vision_title = request.POST.get("vision_title")
-        vision_description = request.POST.get("vision_description")
-        special_title = request.POST.get("special_title")
-        special_description = request.POST.get("special_description")
 
-        if hero_image:
-            aboutus.hero_image = hero_image
-        if who_we_are_image:
-            aboutus.who_we_are_image= who_we_are_image
-        aboutus.hero_title= hero_title
-        aboutus.hero_sub_title = hero_sub_title
+        # Images
+        if request.FILES.get("hero_image"):
+            aboutus.hero_image = request.FILES.get("hero_image")
 
-        aboutus.who_we_are_title = who_we_are_title
-        aboutus.who_we_are_description = who_we_are_description
+        if request.FILES.get("who_we_are_image"):
+            aboutus.who_we_are_image = request.FILES.get("who_we_are_image")
 
-        aboutus.mission_title = mission_title
-        aboutus.mission_description = mission_description
+        # Text Fields
+        aboutus.hero_title = request.POST.get("hero_title", aboutus.hero_title)
+        aboutus.hero_sub_title = request.POST.get("hero_sub_title", aboutus.hero_sub_title)
 
-        aboutus.vision_title = vision_title
-        aboutus.vision_description = vision_description
+        aboutus.who_we_are_title = request.POST.get("who_we_are_title", aboutus.who_we_are_title)
+        aboutus.who_we_are_description = request.POST.get("who_we_are_description", aboutus.who_we_are_description)
 
-        aboutus.special_title = special_title
-        aboutus.special_description = special_description
+        aboutus.mission_title = request.POST.get("mission_title", aboutus.mission_title)
+        aboutus.mission_description = request.POST.get("mission_description", aboutus.mission_description)
+
+        aboutus.vision_title = request.POST.get("vision_title", aboutus.vision_title)
+        aboutus.vision_description = request.POST.get("vision_description", aboutus.vision_description)
+
+        aboutus.special_title = request.POST.get("special_title", aboutus.special_title)
+        aboutus.special_description = request.POST.get("special_description", aboutus.special_description)
 
         aboutus.save()
-        messages.success(request, "Successfully Updated About Us Page  !")
+
+        messages.success(request, "Successfully Updated About Us Page!")
         return redirect("about")
 
-    return render(request, "about_manage.html",
-                  {"aboutus": aboutus})
+    return render(
+        request,
+        "about_manage.html",
+        {"aboutus": aboutus}
+    )
 
 def SocialMediaView(request):
 

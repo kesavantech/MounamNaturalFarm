@@ -132,6 +132,7 @@ class AboutUs(models.Model):
     def __str__(self):
         return self.hero_title
 
+
 class Enquiry(models.Model):
 
     name = models.CharField(max_length=150)
